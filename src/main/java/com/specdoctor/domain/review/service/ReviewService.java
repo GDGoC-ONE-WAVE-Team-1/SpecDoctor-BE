@@ -10,6 +10,7 @@ import com.specdoctor.domain.activity.repository.ActivityRepository;
 import com.specdoctor.domain.review.dto.ReviewCreateRequest;
 import com.specdoctor.domain.review.dto.ReviewResponse;
 import com.specdoctor.domain.review.entity.Review;
+
 import com.specdoctor.domain.review.repository.ReviewRepository;
 import com.specdoctor.domain.user.entity.User;
 import com.specdoctor.domain.user.exception.UserNotFoundException;
