@@ -73,7 +73,7 @@ public class AuthService {
 
 		// 사용자 정보가 없으면 User 객체 생성 후 저장 (회원 가입)
 		return userRepository.findByEmail(email)
-			.orElseGet(() -> userRepository.save(User.create(email, name, Role.USER)));
+			.orElseGet(() -> userRepository.save(User.create(name, email, Role.USER)));
 	}
 
 	private AuthResponse createToken(User user) {
