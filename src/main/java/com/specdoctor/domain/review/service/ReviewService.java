@@ -1,10 +1,10 @@
-package com.specdoctor.domain.service;
+package com.specdoctor.domain.review.service;
 
-import com.specdoctor.domain.Review;
-import com.specdoctor.domain.dto.ReviewCreateRequest;
-import com.specdoctor.domain.dto.ReviewResponse;
-import com.specdoctor.domain.dto.ReviewUpdateRequest;
-import com.specdoctor.domain.repository.ReviewRepository;
+import com.specdoctor.domain.review.entity.Review;
+import com.specdoctor.domain.review.dto.ReviewCreateRequest;
+import com.specdoctor.domain.review.dto.ReviewResponse;
+import com.specdoctor.domain.review.dto.ReviewUpdateRequest;
+import com.specdoctor.domain.review.repository.ReviewRepository;
 import com.specdoctor.global.error.ErrorCode;
 import com.specdoctor.global.error.exception.ServiceException;
 import lombok.Builder;

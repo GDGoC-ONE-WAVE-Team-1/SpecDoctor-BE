@@ -1,6 +1,6 @@
-package com.specdoctor.domain;
+package com.specdoctor.domain.review.entity;
 
-import com.specdoctor.domain.dto.ReviewUpdateRequest;
+import com.specdoctor.domain.review.dto.ReviewUpdateRequest;
 import com.specdoctor.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

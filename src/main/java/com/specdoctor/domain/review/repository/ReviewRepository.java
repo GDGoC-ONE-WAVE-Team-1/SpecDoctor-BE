@@ -1,6 +1,6 @@
-package com.specdoctor.domain.repository;
+package com.specdoctor.domain.review.repository;
 
-import com.specdoctor.domain.Review;
+import com.specdoctor.domain.review.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
