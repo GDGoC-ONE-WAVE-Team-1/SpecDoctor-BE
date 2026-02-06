@@ -21,6 +21,7 @@ public enum ErrorCode {
 
 	USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "USER_NOT_FOUND", "존재하지 않는 사용자입니다."),
 	REPORT_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "REPORT_NOT_FOUND", "존재하지 않는 신고입니다."),
+	ACTIVITY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "ACTIVITY_NOT_FOUND", "존재하지 않는 활동입니다."),
 
 	FAIL_GOOGLE_OAUTH(HttpStatus.INTERNAL_SERVER_ERROR.value(), "FAIL_GOOGLE_OAUTH", "Google OAuth에 실패했습니다."),
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "INTERNAL_SERVER_ERROR", "서버 오류가 발생했습니다.");

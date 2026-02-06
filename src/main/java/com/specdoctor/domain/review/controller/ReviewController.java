@@ -4,6 +4,7 @@ import com.specdoctor.domain.review.dto.ReviewCreateRequest;
 import com.specdoctor.domain.review.dto.ReviewResponse;
 import com.specdoctor.domain.review.dto.ReviewUpdateRequest;
 import com.specdoctor.domain.review.service.ReviewService;
+import com.specdoctor.domain.user.entity.User;
 import com.specdoctor.global.auth.domain.AuthDetails;
 import com.specdoctor.global.response.GlobalResponseDto;
 import com.specdoctor.global.success.SuccessCode;
@@ -23,39 +24,16 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<GlobalResponseDto<Long>> createReview(
-            @AuthenticationPrincipal AuthDetails authDetails,
+    public String createReview(
+            @AuthenticationPrincipal Long id,
             @RequestBody ReviewCreateRequest request
     ) {
-        Long reviewId = reviewService.create(authDetails.getUserId(), request);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(GlobalResponseDto.success(reviewId, SuccessCode.CREATED));
-    }
-
-    @PutMapping("/{review_id}")
-    public ResponseEntity<GlobalResponseDto<Void>> updateReview(
-            @AuthenticationPrincipal AuthDetails authDetails,
-            @PathVariable("review_id") Long reviewId,
-            @RequestBody ReviewUpdateRequest request
-    ) {
-        reviewService.update(authDetails.getUserId(), reviewId, request);
-        return ResponseEntity.ok(GlobalResponseDto.success(SuccessCode.SUCCESS));
-    }
-
-    @DeleteMapping("/{review_id}")
-    public ResponseEntity<GlobalResponseDto<Void>> deleteReview(
-            @AuthenticationPrincipal AuthDetails authDetails,
-            @PathVariable("review_id") Long reviewId
-    ) {
-        reviewService.delete(authDetails.getUserId(), reviewId);
-        return ResponseEntity.ok(GlobalResponseDto.success(SuccessCode.SUCCESS));
+         reviewService.create(id, request);
+        return SuccessCode.CREATED.getMessage();
     }
 
     @GetMapping
-    public ResponseEntity<GlobalResponseDto<List<ReviewResponse>>> getAllReviews() {
-        List<ReviewResponse> reviews = reviewService.findAll();
-        return ResponseEntity.ok(
-                GlobalResponseDto.success(reviews, SuccessCode.SUCCESS)
-        );
+    public List<ReviewResponse> getAllReviews(@RequestParam String activityName) {
+        return reviewService.findAll(activityName);
     }
 }
