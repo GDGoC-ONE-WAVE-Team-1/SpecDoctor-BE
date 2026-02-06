@@ -65,6 +65,9 @@
 
 ---
 
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/71a284ba-81ef-45cc-9dfb-3b7ebfc54a50" />
+
+
 ## 솔루션 및 차별점
 
 - **검증 솔루션:  더치트식 블랙리스트 & 화이트리스트**
