@@ -25,6 +25,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AiSearchActivityService {
 
+	private final ChatModel chatModel;
+	private final ActivityRepository activityRepository;
+	private final InvalidActivityRepository invalidActivityRepository;
+
 	private static @NonNull PromptTemplate getPromptTemplate() {
 		String promptText = """
 			Evaluate if the activity "{activityName}" is a "good activity" based on the following criteria:
@@ -32,29 +36,25 @@ public class AiSearchActivityService {
 			2. Total activity fees and detailed usage (settlement) are regularly disclosed.
 			3. Accounting book verification or cash receipt issuance is not refused.
 			4. The representative selection process is democratic and transparent.
-
+			
 			If it violates ALL 4 criteria, set isGoodActivity to false. Provide detailed reasons for failure in:
 			- 'operationEntityReason' (for criterion 1)
 			- 'financeReason' (for criterion 2)
 			- 'financeOpenReason' (for criterion 3)
 			- 'leaderSelectionReason' (for criterion 4)
-
+			
 			Otherwise (if it meets at least one criterion), set isGoodActivity to true. Fill 'name', 'description', 'link', and 'category'.
 			For 'category', choose the best fit from: IT, DEVELOPMENT, DESIGN, PLANNING, MARKETING.
 			
 			If a reason is not applicable (e.g. because the activity is good), leave it null or empty.
-
+			
 			IMPORTANT: Please provide all text fields (description, reasons, etc.) in KOREAN.
-
+			
 			{format}
 			""";
 
 		return new PromptTemplate(promptText);
 	}
-
-	private final ChatModel chatModel;
-	private final ActivityRepository activityRepository;
-	private final InvalidActivityRepository invalidActivityRepository;
 
 	public SearchActivityResponseDto execute(String activityName, boolean saveToDb) {
 		BeanOutputConverter<AiEvaluationResult> converter = new BeanOutputConverter<>(AiEvaluationResult.class);
@@ -110,7 +110,8 @@ public class AiSearchActivityService {
 
 	private Category parseCategory(String categoryStr) {
 		try {
-			if (categoryStr == null) return Category.ETA;
+			if (categoryStr == null)
+				return Category.ETA;
 			return Category.valueOf(categoryStr.toUpperCase());
 		} catch (IllegalArgumentException e) {
 			return Category.ETA;
@@ -128,5 +129,6 @@ public class AiSearchActivityService {
 		String financeReason,
 		String financeOpenReason,
 		String leaderSelectionReason
-	) {}
+	) {
+	}
 }

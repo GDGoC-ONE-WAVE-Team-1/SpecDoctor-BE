@@ -24,7 +24,6 @@ public class SwaggerConfig {
 	@Value("${app.server.url}")
 	private String serverUrl;
 
-
 	@Bean
 	public OpenAPI openApi() {
 		String jwt = "JWT";

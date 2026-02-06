@@ -1,6 +1,5 @@
 package com.specdoctor.global.error.exception;
 
-
 import com.specdoctor.global.error.ErrorCode;
 
 import lombok.Getter;

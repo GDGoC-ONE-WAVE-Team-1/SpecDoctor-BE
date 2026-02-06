@@ -1,11 +1,12 @@
 package com.specdoctor.domain.review.repository;
 
-import com.specdoctor.domain.review.entity.Review;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.specdoctor.domain.review.entity.Review;
+
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    List<Review> findAllByActivityName(String name);
+	List<Review> findAllByActivityName(String name);
 
 }
