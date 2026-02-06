@@ -46,13 +46,13 @@ public class ReviewService {
 	}
 
 	public List<ReviewResponse> findAllReviewByActivityName(String activityName) {
-		return reviewRepository.findAllByActivityName(activityName).stream()
+		return reviewRepository.findAllByActivityNameOrderByIdDesc(activityName).stream()
 			.map(ReviewResponse::from)
 			.toList();
 	}
 
 	public List<ReviewResponse> findAllReview() {
-		return reviewRepository.findAll().stream()
+		return reviewRepository.findAllByOrderByIdDesc().stream()
 			.map(ReviewResponse::from)
 			.toList();
 	}
