@@ -1,5 +1,6 @@
 package com.specdoctor.domain.invalidactivity.entity;
 
+import com.specdoctor.domain.report.entity.Report;
 import com.specdoctor.global.common.entity.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -33,4 +34,14 @@ public class InvalidActivity extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String leaderSelection;
+
+	public static InvalidActivity from(Report report) {
+		return InvalidActivity.builder()
+			.name(report.getName())
+			.operationEntity(report.getOperationEntity())
+			.finance(report.getFinance())
+			.financeOpen(report.getFinanceOpen())
+			.leaderSelection(report.getLeaderSelection())
+			.build();
+	}
 }
