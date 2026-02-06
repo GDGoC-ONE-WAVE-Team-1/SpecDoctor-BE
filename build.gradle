@@ -47,6 +47,7 @@ dependencies {
 
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.42'
 
     // Gson
     implementation 'com.google.api-client:google-api-client:2.2.0'
