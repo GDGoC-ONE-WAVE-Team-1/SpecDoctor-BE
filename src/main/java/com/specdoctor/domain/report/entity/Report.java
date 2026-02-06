@@ -4,6 +4,11 @@ import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityRespons
 import com.specdoctor.domain.report.dto.request.CreateReportRequest;
 import com.specdoctor.global.common.entity.BaseEntity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +23,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@SQLDelete(sql = "UPDATE report SET is_deleted = true, deleted_at = NOW() WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Report extends BaseEntity {
 
 	@NotNull
@@ -39,6 +46,13 @@ public class Report extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String leaderSelection;
+
+	@Builder.Default
+	@Column(nullable = false)
+	private Boolean isDeleted = false;
+
+	@Column
+	private LocalDateTime deletedAt;
 
 	public static Report from(CreateReportRequest request) {
 		return Report.builder()
