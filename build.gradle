@@ -40,6 +40,10 @@ dependencies {
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
 
+    // Gson
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.google.code.gson:gson'
+
     // Oracle OCI SDK
     implementation 'com.oracle.oci.sdk:oci-java-sdk-objectstorage:3.79.0'
     implementation 'com.oracle.oci.sdk:oci-java-sdk-common-httpclient-jersey3:3.79.0'
