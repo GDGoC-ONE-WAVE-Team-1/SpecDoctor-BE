@@ -34,9 +34,11 @@ public class AiSearchActivityService {
 
 		AiEvaluationResult result = converter.convert(chatModel.call(prompt).getResult().getOutput().getText());
 
+		String finalName = (result.name() != null && !result.name().isBlank()) ? result.name() : activityName;
+
 		if (result.isGoodActivity()) {
 			SearchResultResponseDto infoDto = new ActivityInfoResponseDto(
-				result.name(),
+				finalName,
 				result.description(),
 				result.link(),
 				parseCategory(result.category())
@@ -44,7 +46,7 @@ public class AiSearchActivityService {
 			return new SearchActivityResponseDto(true, infoDto);
 		} else {
 			SearchResultResponseDto invalidDto = new InvalidActivityResponseDto(
-				result.name(),
+				finalName,
 				result.operationEntityReason(),
 				result.financeReason(),
 				result.financeOpenReason(),
