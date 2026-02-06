@@ -16,6 +16,7 @@ public class SearchActivityService {
 
 	private final ActivityRepository activityRepository;
 	private final InvalidActivityRepository invalidActivityRepository;
+	private final AiSearchActivityService aiSearchActivityService;
 
 	public SearchActivityResponseDto execute(String activityName) {
 		return activityRepository.findByName(activityName)
@@ -23,10 +24,7 @@ public class SearchActivityService {
 			.orElseGet(() ->
 				invalidActivityRepository.findByName(activityName)
 					.map(invalidActivity -> new SearchActivityResponseDto(false, InvalidActivityResponseDto.of(invalidActivity)))
-					.orElseGet(() -> {
-						// TODO: AI 기반 분석
-						return new SearchActivityResponseDto(true, null);
-					})
+					.orElseGet(() -> aiSearchActivityService.execute(activityName))
 			);
 	}
 }
