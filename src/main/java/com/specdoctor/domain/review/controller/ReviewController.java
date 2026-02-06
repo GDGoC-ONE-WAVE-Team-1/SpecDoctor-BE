@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.specdoctor.domain.review.dto.ReviewCreateRequest;
 import com.specdoctor.domain.review.dto.ReviewResponse;
 import com.specdoctor.domain.review.service.ReviewService;
+import com.specdoctor.global.auth.domain.AuthDetails;
 import com.specdoctor.global.success.SuccessCode;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,10 @@ public class ReviewController {
 
 	@PostMapping
 	public String createReview(
-		@AuthenticationPrincipal Long id,
+		@AuthenticationPrincipal AuthDetails authDetails,
 		@RequestBody ReviewCreateRequest request
 	) {
-		reviewService.create(id, request);
+		reviewService.create(authDetails.getUserId(), request);
 		return SuccessCode.CREATED.getMessage();
 	}
 
