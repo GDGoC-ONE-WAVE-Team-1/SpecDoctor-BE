@@ -24,7 +24,7 @@ public class SearchActivityService {
 			.orElseGet(() ->
 				invalidActivityRepository.findByName(activityName)
 					.map(invalidActivity -> new SearchActivityResponseDto(false, InvalidActivityResponseDto.of(invalidActivity)))
-					.orElseGet(() -> aiSearchActivityService.execute(activityName))
+					.orElseGet(() -> aiSearchActivityService.execute(activityName, true))
 			);
 	}
 }

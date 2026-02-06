@@ -12,7 +12,8 @@ public enum Category {
 	DEVELOPMENT("개발"),
 	DESIGN("디자인"),
 	PLANNING("기획"),
-	MARKETING("마케팅");
+	MARKETING("마케팅"),
+	ETA("기타");
 
 	private final String name;
 }

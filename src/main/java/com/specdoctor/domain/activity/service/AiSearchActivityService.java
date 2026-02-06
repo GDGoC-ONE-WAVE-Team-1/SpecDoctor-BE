@@ -12,47 +12,18 @@ import org.springframework.stereotype.Service;
 import com.specdoctor.domain.activity.dto.response.ActivityInfoResponseDto;
 import com.specdoctor.domain.activity.dto.response.SearchActivityResponseDto;
 import com.specdoctor.domain.activity.dto.response.SearchResultResponseDto;
+import com.specdoctor.domain.activity.entity.Activity;
 import com.specdoctor.domain.activity.entity.enums.Category;
+import com.specdoctor.domain.activity.repository.ActivityRepository;
 import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityResponseDto;
+import com.specdoctor.domain.invalidactivity.entity.InvalidActivity;
+import com.specdoctor.domain.invalidactivity.repository.InvalidActivityRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AiSearchActivityService {
-
-	private final ChatModel chatModel;
-
-	public SearchActivityResponseDto execute(String activityName) {
-		BeanOutputConverter<AiEvaluationResult> converter = new BeanOutputConverter<>(AiEvaluationResult.class);
-
-		PromptTemplate promptTemplate = getPromptTemplate();
-		Prompt prompt = promptTemplate.create(Map.of(
-			"activityName", activityName,
-			"format", converter.getFormat()
-		));
-
-		AiEvaluationResult result = converter.convert(chatModel.call(prompt).getResult().getOutput().getText());
-
-		if (result.isGoodActivity()) {
-			SearchResultResponseDto infoDto = new ActivityInfoResponseDto(
-				result.name(),
-				result.description(),
-				result.link(),
-				parseCategory(result.category())
-			);
-			return new SearchActivityResponseDto(true, infoDto);
-		} else {
-			SearchResultResponseDto invalidDto = new InvalidActivityResponseDto(
-				result.name(),
-				result.operationEntityReason(),
-				result.financeReason(),
-				result.financeOpenReason(),
-				result.leaderSelectionReason()
-			);
-			return new SearchActivityResponseDto(false, invalidDto);
-		}
-	}
 
 	private static @NonNull PromptTemplate getPromptTemplate() {
 		String promptText = """
@@ -81,12 +52,68 @@ public class AiSearchActivityService {
 		return new PromptTemplate(promptText);
 	}
 
+	private final ChatModel chatModel;
+	private final ActivityRepository activityRepository;
+	private final InvalidActivityRepository invalidActivityRepository;
+
+	public SearchActivityResponseDto execute(String activityName, boolean saveToDb) {
+		BeanOutputConverter<AiEvaluationResult> converter = new BeanOutputConverter<>(AiEvaluationResult.class);
+
+		PromptTemplate promptTemplate = getPromptTemplate();
+		Prompt prompt = promptTemplate.create(Map.of(
+			"activityName", activityName,
+			"format", converter.getFormat()
+		));
+
+		AiEvaluationResult result = converter.convert(chatModel.call(prompt).getResult().getOutput().getText());
+
+		String finalName = (result.name() != null && !result.name().isBlank()) ? result.name() : activityName;
+
+		if (result.isGoodActivity()) {
+			if (saveToDb) {
+				activityRepository.save(Activity.builder()
+					.name(finalName)
+					.description(result.description())
+					.link(result.link())
+					.category(parseCategory(result.category()))
+					.build());
+			}
+
+			SearchResultResponseDto infoDto = new ActivityInfoResponseDto(
+				finalName,
+				result.description(),
+				result.link(),
+				parseCategory(result.category())
+			);
+			return new SearchActivityResponseDto(true, infoDto);
+		} else {
+			if (saveToDb) {
+				invalidActivityRepository.save(InvalidActivity.builder()
+					.name(finalName)
+					.operationEntity(result.operationEntityReason())
+					.finance(result.financeReason())
+					.financeOpen(result.financeOpenReason())
+					.leaderSelection(result.leaderSelectionReason())
+					.build());
+			}
+
+			SearchResultResponseDto invalidDto = new InvalidActivityResponseDto(
+				finalName,
+				result.operationEntityReason(),
+				result.financeReason(),
+				result.financeOpenReason(),
+				result.leaderSelectionReason()
+			);
+			return new SearchActivityResponseDto(false, invalidDto);
+		}
+	}
+
 	private Category parseCategory(String categoryStr) {
 		try {
-			if (categoryStr == null) return Category.IT; // Default or handle error
+			if (categoryStr == null) return Category.ETA;
 			return Category.valueOf(categoryStr.toUpperCase());
 		} catch (IllegalArgumentException e) {
-			return Category.IT; // Fallback
+			return Category.ETA;
 		}
 	}
 
