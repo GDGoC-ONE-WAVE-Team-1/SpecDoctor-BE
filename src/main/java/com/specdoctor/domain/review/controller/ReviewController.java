@@ -39,7 +39,7 @@ public class ReviewController {
 		return reviewService.findAllReviewByActivityName(activityName);
 	}
 
-	@GetMapping
+	@GetMapping("/all")
 	public List<ReviewResponse> getAllReview() {
 		return reviewService.findAllReview();
 	}
