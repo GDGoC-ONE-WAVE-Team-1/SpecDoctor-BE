@@ -1,6 +1,7 @@
 package com.specdoctor.domain.controller;
 
 import com.specdoctor.domain.dto.ReviewCreateRequest;
+import com.specdoctor.domain.dto.ReviewResponse;
 import com.specdoctor.domain.dto.ReviewUpdateRequest;
 import com.specdoctor.domain.service.ReviewService;
 import com.specdoctor.global.auth.domain.AuthDetails;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/review")
@@ -46,5 +49,13 @@ public class ReviewController {
     ) {
         reviewService.delete(authDetails.getUserId(), reviewId);
         return ResponseEntity.ok(GlobalResponseDto.success(SuccessCode.SUCCESS));
+    }
+
+    @GetMapping
+    public ResponseEntity<GlobalResponseDto<List<ReviewResponse>>> getAllReviews() {
+        List<ReviewResponse> reviews = reviewService.findAll();
+        return ResponseEntity.ok(
+                GlobalResponseDto.success(reviews, SuccessCode.SUCCESS)
+        );
     }
 }

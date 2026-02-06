@@ -2,6 +2,7 @@ package com.specdoctor.domain.service;
 
 import com.specdoctor.domain.Review;
 import com.specdoctor.domain.dto.ReviewCreateRequest;
+import com.specdoctor.domain.dto.ReviewResponse;
 import com.specdoctor.domain.dto.ReviewUpdateRequest;
 import com.specdoctor.domain.repository.ReviewRepository;
 import com.specdoctor.global.error.ErrorCode;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +35,12 @@ public class ReviewService {
                 .build();
 
         return reviewRepository.save(review).getId();
+    }
+
+    public List<ReviewResponse> findAll() {
+        return reviewRepository.findAll().stream()
+                .map(ReviewResponse::from)
+                .toList();
     }
 
     @Transactional
