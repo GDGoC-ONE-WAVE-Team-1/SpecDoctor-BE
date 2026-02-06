@@ -1,6 +1,6 @@
-# 1팀
+## 1팀
 <img width="158" height="32" alt="spec_doctor_logo" src="https://github.com/user-attachments/assets/7eaa3fbb-90a1-47d9-a9b6-3fd32ab2b507" />
-
+# "SpecDoctor will help you"
 
 ## 팀원 소개:
 
