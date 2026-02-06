@@ -31,7 +31,7 @@ public class ReviewService {
 
 	public void create(Long userId, ReviewCreateRequest request) {
 		User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-		Activity activity = activityRepository.findByName(request.name())
+		Activity activity = activityRepository.findByNameIgnoreCase(request.name())
 			.orElseThrow(() -> new ServiceException(ErrorCode.ACTIVITY_NOT_FOUND));
 
 		Review review = Review.builder()

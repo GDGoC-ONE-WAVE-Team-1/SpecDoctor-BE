@@ -19,7 +19,7 @@ public class SearchActivityService {
 	private final AiSearchActivityService aiSearchActivityService;
 
 	public SearchActivityResponseDto execute(String activityName) {
-		return activityRepository.findByName(activityName)
+		return activityRepository.findByNameIgnoreCase(activityName)
 			.map(activity -> new SearchActivityResponseDto(true, ActivityInfoResponseDto.of(activity)))
 			.orElseGet(() ->
 				invalidActivityRepository.findByName(activityName)
