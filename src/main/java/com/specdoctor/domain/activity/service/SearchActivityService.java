@@ -17,11 +17,11 @@ public class SearchActivityService {
 	private final ActivityRepository activityRepository;
 	private final InvalidActivityRepository invalidActivityRepository;
 
-	public SearchActivityResponseDto execute(String name) {
-		return activityRepository.findByName(name)
+	public SearchActivityResponseDto execute(String activityName) {
+		return activityRepository.findByName(activityName)
 			.map(activity -> new SearchActivityResponseDto(true, ActivityInfoResponseDto.of(activity)))
 			.orElseGet(() ->
-				invalidActivityRepository.findByName(name)
+				invalidActivityRepository.findByName(activityName)
 					.map(invalidActivity -> new SearchActivityResponseDto(false, InvalidActivityResponseDto.of(invalidActivity)))
 					.orElseGet(() -> {
 						// TODO: AI 기반 분석
