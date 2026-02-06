@@ -2,6 +2,7 @@ package com.specdoctor.global.config.swagger;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +20,11 @@ import io.swagger.v3.oas.models.servers.Server;
 	version = "v1.0.0"))
 @Configuration
 public class SwaggerConfig {
+
+	@Value("${app.server.url}")
+	private String serverUrl;
+
+
 	@Bean
 	public OpenAPI openApi() {
 		String jwt = "JWT";
@@ -31,7 +37,7 @@ public class SwaggerConfig {
 		);
 
 		Server server = new Server();
-		server.setUrl("/");
+		server.setUrl(serverUrl);
 
 		return new OpenAPI()
 			.servers(List.of(server))
