@@ -25,7 +25,7 @@ public class ActivityController {
 		return searchActivityService.execute(activityName);
 	}
 
-	@GetMapping("/all")
+	@GetMapping("/count-all")
 	public AllActivityCountResponseDto getAllActivityCount() {
 		return getAllActivityCount.execute();
 	}

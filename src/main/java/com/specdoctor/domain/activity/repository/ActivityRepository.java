@@ -10,5 +10,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
 	Optional<Activity> findByName(String name);
 
-	int countAll();
+	int countBy();
 }

@@ -16,7 +16,7 @@ public class GetAllActivityCount {
 	private final ReportRepository reportRepository;
 
 	public AllActivityCountResponseDto execute() {
-		long totalActivityCount = activityRepository.countAll();
+		long totalActivityCount = activityRepository.countBy();
 		long reportedActivityCount = reportRepository.countAllIncludingDeleted();
 
 		return new AllActivityCountResponseDto(totalActivityCount, reportedActivityCount);
