@@ -4,7 +4,7 @@ import com.specdoctor.domain.review.entity.Review;
 
 public record ReviewResponse(
 	Long id,
-	Long writer,
+	String writer,
 	String review,
 	int star,
 	String role
@@ -12,7 +12,7 @@ public record ReviewResponse(
 	public static ReviewResponse from(Review review) {
 		return new ReviewResponse(
 			review.getId(),
-			review.getWriter().getId(),
+			review.getWriter().getName(),
 			review.getReview(),
 			review.getStar(),
 			review.getRole()
