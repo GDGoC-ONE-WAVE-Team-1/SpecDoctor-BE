@@ -35,7 +35,12 @@ public class ReviewController {
 	}
 
 	@GetMapping
-	public List<ReviewResponse> getAllReviews(@RequestParam String activityName) {
-		return reviewService.findAll(activityName);
+	public List<ReviewResponse> getAllReviewByActivityName(@RequestParam String activityName) {
+		return reviewService.findAllReviewByActivityName(activityName);
+	}
+
+	@GetMapping
+	public List<ReviewResponse> getAllReview() {
+		return reviewService.findAllReview();
 	}
 }

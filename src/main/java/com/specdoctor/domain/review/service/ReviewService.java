@@ -45,8 +45,14 @@ public class ReviewService {
 		reviewRepository.save(review);
 	}
 
-	public List<ReviewResponse> findAll(String activityName) {
+	public List<ReviewResponse> findAllReviewByActivityName(String activityName) {
 		return reviewRepository.findAllByActivityName(activityName).stream()
+			.map(ReviewResponse::from)
+			.toList();
+	}
+
+	public List<ReviewResponse> findAllReview() {
+		return reviewRepository.findAll().stream()
 			.map(ReviewResponse::from)
 			.toList();
 	}
