@@ -18,10 +18,15 @@ spring:
     show_sql: false
     open-in-view: false
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirect-uri: ${REDIRECT_URI}
+            scope: ${SCOPE}
+
 jwt:
-  secret: { JWT_SECRET }
-  issuer: { JWT_ISSUER }
-  token:
-    expire: { JWT_TOKEN_EXPIRE }
-  refresh:
-    expire: { JWT_REFRESH_EXPIRE }
+  secret_key: ${JWT_SECRET}
