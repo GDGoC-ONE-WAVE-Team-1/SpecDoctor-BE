@@ -1,4 +1,4 @@
-package com.specdoctor.domain.dto;
+package com.specdoctor.domain.review.dto;
 
 public record ReviewUpdateRequest  (
         Long activityId,

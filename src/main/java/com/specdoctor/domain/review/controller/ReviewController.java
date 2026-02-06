@@ -1,9 +1,9 @@
-package com.specdoctor.domain.controller;
+package com.specdoctor.domain.review.controller;
 
-import com.specdoctor.domain.dto.ReviewCreateRequest;
-import com.specdoctor.domain.dto.ReviewResponse;
-import com.specdoctor.domain.dto.ReviewUpdateRequest;
-import com.specdoctor.domain.service.ReviewService;
+import com.specdoctor.domain.review.dto.ReviewCreateRequest;
+import com.specdoctor.domain.review.dto.ReviewResponse;
+import com.specdoctor.domain.review.dto.ReviewUpdateRequest;
+import com.specdoctor.domain.review.service.ReviewService;
 import com.specdoctor.global.auth.domain.AuthDetails;
 import com.specdoctor.global.response.GlobalResponseDto;
 import com.specdoctor.global.success.SuccessCode;
