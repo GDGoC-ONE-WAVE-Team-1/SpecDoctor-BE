@@ -9,4 +9,6 @@ import com.specdoctor.domain.activity.entity.Activity;
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
 	Optional<Activity> findByName(String name);
+
+	int countAll();
 }
