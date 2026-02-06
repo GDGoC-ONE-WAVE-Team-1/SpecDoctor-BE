@@ -77,7 +77,7 @@ public class AuthService {
 	}
 
 	private AuthResponse createToken(User user) {
-		String accessToken = jwtProvider.generateAccessToken(user.getId(), user.getEmail(), user.getRole());
+		String accessToken = jwtProvider.generateAccessToken(user.getId(), user.getName(), user.getRole());
 
 		userRepository.save(user);
 
