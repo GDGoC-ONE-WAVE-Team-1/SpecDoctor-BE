@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.specdoctor.domain.activity.dto.response.AllActivityCountResponseDto;
 import com.specdoctor.domain.activity.dto.response.SearchActivityResponseDto;
-import com.specdoctor.domain.activity.repository.ActivityRepository;
 import com.specdoctor.domain.activity.service.GetAllActivityCount;
 import com.specdoctor.domain.activity.service.SearchActivityService;
 

@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.specdoctor.domain.activity.dto.response.SearchActivityResponseDto;
 import com.specdoctor.domain.activity.service.AiSearchActivityService;
 import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityResponseDto;
-import com.specdoctor.domain.report.entity.Report;
 import com.specdoctor.domain.report.repository.ReportRepository;
 
 import lombok.RequiredArgsConstructor;

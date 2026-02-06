@@ -18,14 +18,14 @@ public class CreateReportService {
 	private final AsyncReportAnalysisService asyncReportAnalysisService;
 
 	public void createReport(CreateReportRequest createReportRequest) {
-		if(invalidActivityRepository.existsByName(createReportRequest.name())) {
+		if (invalidActivityRepository.existsByName(createReportRequest.name())) {
 			return;
 		}
 
 		Report report = Report.from(createReportRequest);
 
 		Report savedReport = reportRepository.save(report);
-		
+
 		asyncReportAnalysisService.analyzeReport(savedReport.getId(), savedReport.getName());
 	}
 }

@@ -23,7 +23,8 @@ public class SearchActivityService {
 			.map(activity -> new SearchActivityResponseDto(true, ActivityInfoResponseDto.of(activity)))
 			.orElseGet(() ->
 				invalidActivityRepository.findByName(activityName)
-					.map(invalidActivity -> new SearchActivityResponseDto(false, InvalidActivityResponseDto.of(invalidActivity)))
+					.map(invalidActivity -> new SearchActivityResponseDto(false,
+						InvalidActivityResponseDto.of(invalidActivity)))
 					.orElseGet(() -> aiSearchActivityService.execute(activityName, true))
 			);
 	}

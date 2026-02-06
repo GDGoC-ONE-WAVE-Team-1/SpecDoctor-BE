@@ -1,13 +1,13 @@
 package com.specdoctor.domain.report.entity;
 
-import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityResponseDto;
-import com.specdoctor.domain.report.dto.request.CreateReportRequest;
-import com.specdoctor.global.common.entity.BaseEntity;
-
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+
+import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityResponseDto;
+import com.specdoctor.domain.report.dto.request.CreateReportRequest;
+import com.specdoctor.global.common.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
