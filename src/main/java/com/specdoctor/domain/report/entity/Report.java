@@ -1,5 +1,7 @@
 package com.specdoctor.domain.report.entity;
 
+import com.specdoctor.domain.invalidactivity.dto.response.InvalidActivityResponseDto;
+import com.specdoctor.domain.report.dto.request.CreateReportRequest;
 import com.specdoctor.global.common.entity.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -37,4 +39,20 @@ public class Report extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String leaderSelection;
+
+	public static Report from(CreateReportRequest request) {
+		return Report.builder()
+			.name(request.name())
+			.message(request.message())
+			.build();
+	}
+
+	public void updateAiAnalysis(
+		InvalidActivityResponseDto invalidActivityResponseDto
+	) {
+		this.operationEntity = invalidActivityResponseDto.operationEntity();
+		this.finance = invalidActivityResponseDto.finance();
+		this.financeOpen = invalidActivityResponseDto.financeOpen();
+		this.leaderSelection = invalidActivityResponseDto.leaderSelection();
+	}
 }
