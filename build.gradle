@@ -16,6 +16,11 @@ java {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    set('springAiVersion', "1.0.0-M6")
 }
 
 dependencies {
@@ -24,6 +29,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // Spring AI
+    implementation 'org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -51,6 +59,12 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
 }
 
 tasks.named('test') {
