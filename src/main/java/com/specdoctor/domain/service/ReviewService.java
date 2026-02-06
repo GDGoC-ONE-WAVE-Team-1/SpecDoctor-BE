@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +21,14 @@ public class ReviewService {
 
     @Transactional
     @Builder
+    @RequestMapping("api/v1/activity")
     public Long create(Long memberId, ReviewCreateRequest request) {
         Review review = Review.builder()
-                .reviewerId(memberId)
+                .userId(memberId)
+                .activityId(request.activityId())
                 .review(request.review())
                 .star(request.star())
                 .role(request.role())
-                .url(request.url())
                 .build();
 
         return reviewRepository.save(review).getId();
