@@ -10,4 +10,6 @@ import com.specdoctor.domain.invalidactivity.entity.InvalidActivity;
 public interface InvalidActivityRepository extends JpaRepository<InvalidActivity, Long> {
 
 	Optional<InvalidActivity> findByName(String name);
+
+	boolean existsByName(String name);
 }
