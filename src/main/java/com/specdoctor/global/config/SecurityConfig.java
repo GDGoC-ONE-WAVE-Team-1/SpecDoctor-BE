@@ -3,6 +3,7 @@ package com.specdoctor.global.config;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,6 +33,12 @@ public class SecurityConfig {
 	private final JwtProvider tokenProvider;
 	private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 	private final CustomAccessDeniedHandler accessDeniedHandler;
+
+	@Value("${app.service.url}")
+	private String serviceUrl;
+
+	@Value("${app.server.url}")
+	private String serverUrl;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -75,7 +82,9 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList(
 			"http://localhost:8080",
-			"http://localhost:3000"));
+			"http://localhost:3000",
+			serviceUrl,
+			serverUrl));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
 		configuration.setAllowCredentials(true);
 		configuration.setAllowedHeaders(List.of("*"));

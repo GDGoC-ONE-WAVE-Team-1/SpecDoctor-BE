@@ -1,0 +1,21 @@
+name: Spec Doctor CD 파이프라인
+
+on:
+  workflow_run:
+    workflows: [ "Spec Doctor CI 파이프라인" ]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 배포
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.REMOTE_IDENTITYFILE }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            sudo ./deploy.sh

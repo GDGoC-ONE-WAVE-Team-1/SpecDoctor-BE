@@ -30,3 +30,9 @@ spring:
 
 jwt:
   secret_key: ${JWT_SECRET}
+
+app:
+  server:
+    url: ${APP_SERVER_URL}
+  service:
+    url: ${APP_CLIENT_URL}

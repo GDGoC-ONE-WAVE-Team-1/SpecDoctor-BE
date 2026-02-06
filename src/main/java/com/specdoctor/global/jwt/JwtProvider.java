@@ -14,12 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.specdoctor.domain.user.entity.enums.Role;
 import com.specdoctor.global.auth.domain.AuthDetails;
 import com.specdoctor.global.auth.usecase.AuthDetailsService;
-import com.specdoctor.global.jwt.dto.response.JwtResponse;
 import com.specdoctor.global.jwt.exception.ExpiredTokenException;
 import com.specdoctor.global.jwt.exception.InvalidTokenException;
 import com.specdoctor.global.jwt.exception.MalformedTokenException;
